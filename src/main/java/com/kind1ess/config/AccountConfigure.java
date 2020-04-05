@@ -29,10 +29,16 @@ import java.beans.PropertyVetoException;
  *      细节：Import注解实质上是导入组件，如果其他组件上没有添加Component相关的注解，就可以通过@Import将其导入，便不需要
  *      用ComponentScan扫描。Import注解可以加在任意组件类上，效果是一样的，都可以导入参数中类的Class对象并作为组件。但是
  *      一般是加在配置类。
+ * PropertySource:
+ *      作用：用于指定properties文件的位置
+ *      属性：
+ *          value：指定文件的名称和文件的路径
+ *      添加properties文件记得重建项目
  */
 //@Configuration
 @ComponentScan("com.kind1ess")
 @Import(JdbcConfigure.class)
+@PropertySource("classpath:jdbcConfig.properties")
 public class AccountConfigure {
 
 }

@@ -2,6 +2,7 @@ package configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbutils.QueryRunner;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +14,16 @@ import java.beans.PropertyVetoException;
 //当AccountConfigure加了@Import(JdbcConfigure.class)时，@Component或者@Configuration就可以去掉了
 //@Configuration
 public class JdbcConfigure {
+
+    @Value("${jdbc.driver}")
+    private String driver;
+    @Value("${jdbc.url}")
+    private String url;
+    @Value("${jdbc.user}")
+    private String user;
+    @Value("${jdbc.password}")
+    private String password;
+
     /**
      * 创建一个QueryRunner对象，并将其放入ioc容器
      *
@@ -28,10 +39,10 @@ public class JdbcConfigure {
     @Bean(name = "ds")
     public DataSource createDataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setDriverClass("com.mchange.v2.c3p0.ComboPooledDataSource");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/spring_learn?serverTimezone=UTC");
-        dataSource.setUser("root");
-        dataSource.setPassword("123456");
+        dataSource.setDriverClass(driver);
+        dataSource.setJdbcUrl(url);
+        dataSource.setUser(user);
+        dataSource.setPassword(password);
         return dataSource;
     }
 }
